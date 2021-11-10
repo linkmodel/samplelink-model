@@ -1,0 +1,167 @@
+id: "http://csoentity.io/json-schema/samplelink/contrib/go.json"
+name: cs samplelink extensions
+imports:
+  - "samplelink-model"
+  - "contrib/core"  
+  - "contrib/class_extensions"  
+  - "contrib/closures"  
+  - "contrib/taxon"  
+# whitelist:
+#  - componentservice to cs term association
+description: CS specific extensions
+
+slots:
+
+  enabled by:
+    domain: operational activity
+    range: componentservice or servicetype
+
+  upstream causal relationship:
+    
+  downstream causal relationship:
+
+classes:
+
+  has workload name:
+    description: >-
+      mixing class for any entity that has a full name and a systematic synonym
+    note: >-
+      consider revising
+    abstract: true
+    mixin: true
+    slots:
+      - full name
+      - systematic synonym
+  
+  extensions and evidence association mixin:
+    description: >-
+      An injected mixing that adds additional fields to association objects.
+      This is a mixture of (a) closures for denormalization (b) evidence
+      fields specific to the CS model.
+    abstract: true
+    mixin: true
+    mixins:
+      - taxon closure mixin
+    apply_to: association
+    slots:    
+      - object extensions
+      - has evidence type
+      - has evidence
+    slot_usage:
+      subject:
+        local_names:
+          - csoentity
+
+  taxon closure mixin:
+    mixin: true
+    description: "An association that includes flattened inlined objects, such as subject_taxon_closure"
+    slots:
+      - subject taxon
+      - subject taxon label
+      - subject taxon closure
+      - subject taxon closure label
+      - object taxon
+      - object taxon label
+      - object taxon closure
+      - object taxon closure label
+  
+
+  ## ------
+  ## DENORMALIZED
+  ## ------
+
+  cs term csoentity mixin:
+    apply_to: operational entity
+    mixins:
+      - has workload name
+    description: >-
+      mixes in CS properties to cso-entities
+    slots:
+      - isa partof closure
+      - isa partof closure label
+      - regulates closure
+      - regulates closure label
+
+  ## ------
+  ## CSCAM
+  ## ------
+
+  ## models
+  
+  causal activity model:
+    aliases: ['CS-CAM']
+    is_a: named graph
+    description: >-
+      A graph-based representation of how a collection of servicetypes operate together to achieve a computational objective.
+      A CS-CAM model is a specialization of a named graph containing instances of CS operational functions, entities, processes,
+      serviceunit components etc, connected via causal relationships.
+    slot_usage:
+      title:
+        description: >-
+          title describing the contents of the CS-CAM
+  
+  ## entity-centric
+  
+  operational event:
+    aliases: ['annoton']
+    # schema: gocam
+    slots:
+      - enabled by
+      - part of
+      - occurs in
+      - upstream causal relationship
+      - downstream causal relationship
+
+  ## associations
+      
+  operational activity to servicetype association:
+    # schema: gocam
+    is_a: association
+    defining_slots:
+      - subject
+      - object
+    slot_usage:
+      subject:
+        range: operational activity
+      object:
+        range: componentservice or servicetype
+  
+  operational activity to location association:
+    # schema: gocam
+    is_a: association
+    defining_slots:
+      - subject
+      - object
+    slot_usage:
+      subject:
+        range: operational activity
+      object:
+        range: serviceunit component
+  
+  operational activity to computational process association:
+    # schema: gocam
+    is_a: association
+    defining_slots:
+      - subject
+      - object
+    slot_usage:
+      subject:
+        range: operational activity
+      object:
+        range: computational process
+  
+  operational activity to downstream operational activity association:
+    # schema: gocam
+    is_a: association
+    defining_slots:
+      - subject
+      - object
+      - relation
+    slot_usage:
+      subject:
+        range: operational activity
+      object:
+        range: operational activity
+      relation:
+        subproperty_of: RO:0002418
+      

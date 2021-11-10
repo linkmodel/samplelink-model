@@ -1,0 +1,31 @@
+title: Samplelink Model
+email: noel.mcloughlin@gmail.com
+description: A high level datamodel for representing computer system ontology entities and their associations.
+
+logo: "/assets/images/samplelink-logo.png"
+
+remote_theme: deepakunni3/just-the-docs
+
+aux_links:
+  "Samplelink Model on GitHub":
+    - "//github.com/linkmodel/samplelink-model"
+
+ga_tracking: UA-nnnnnnnnn-n
+
+search_enabled: true
+heading_anchors: true
+
+# footer_content: "Samplelink Model"
+
+collections:
+  docs:
+    output: true
+  about:
+    output: true
+  guidelines:
+    output: true
+
+includes:
+- about
+- guidelines
+- index.md

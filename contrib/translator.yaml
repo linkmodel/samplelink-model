@@ -1,0 +1,20 @@
+id: "http://csoentity.io/json-schema/samplelink/contrib/translator.json"
+name: translator samplelink mixins
+imports:
+  - "samplelink-model"
+  - "contrib/core"  
+  - "contrib/taxon"  
+description: Monarch specific extensions
+
+slots:
+
+  uri:
+    domain: named thing
+    range: uri
+    description: >-
+      URI expansion of CURIE
+    mappings:
+      - "@id"
+  
+classes: {}
+      

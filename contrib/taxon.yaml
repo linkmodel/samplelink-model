@@ -1,0 +1,27 @@
+id: "http://csoentity.io/json-schema/samplelink/contrib/taxon.json"
+name: taxon
+description: taxon info
+
+slots:
+  
+
+  object taxon:
+    range: system taxon
+    path: object/in_taxon
+    description: >-
+      the taxonomic class of the entity in the object slot
+
+  object taxon label:
+    range: label
+    path: object/in_taxon/label
+
+  subject taxon:
+    range: system taxon
+    path: subject/in_taxon
+    description: >-
+      the taxonomic class of the entity in the object slot
+
+  subject taxon label:
+    path: subject/in_taxon/label
+    range: label
+      
